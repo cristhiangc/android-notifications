@@ -1,0 +1,46 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.huawei.agconnect'  // HUAWEI agconnect Gradle plugin
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        applicationId "pe.cgonzales.hmsdemoapp"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // Flavors https://developer.android.com/studio/build/build-variants#product-flavors
+    flavorDimensions "mobileServices"
+    productFlavors {
+        gms { // Flavor para Google Mobile Services / Firebase
+            dimension "mobileServices"
+        }
+        hms { // Flavor para Huawei Mobile Services / AppGallery
+            dimension "mobileServices"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // Huawei Mobile Services
+    hmsImplementation 'com.huawei.hms:push:5.0.0.300'
+}
